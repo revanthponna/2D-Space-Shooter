@@ -16,6 +16,7 @@ public class BGScroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Making the background image scroll from right to left
         x_speed = Time.time * speed;
         Vector2 offset = new Vector2(x_speed, 0f);
         mesh_Renderer.sharedMaterial.SetTextureOffset("_MainTex", offset);
