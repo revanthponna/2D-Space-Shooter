@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     public float bulletSpeed = 5f;
-    public float deactivateTimer = 4f;
+    public float deactivateTimer = 4f; // Bullet will deactivate after 4secs if there is no collision
 
     [HideInInspector]
     public bool isEnemyBullet = false;
@@ -21,7 +21,7 @@ public class BulletScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   // Making bullet move with specified speed
         Vector3 temp = transform.position;
         temp.x += bulletSpeed * Time.deltaTime;
         transform.position = temp;
@@ -31,7 +31,7 @@ public class BulletScript : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
+    // Checking for collision between bullet with another bullet or enemy
     void OnTriggerEnter2D(Collider2D target)
     {
         if(target.tag == "Bullet" || target.tag == "Enemy")
