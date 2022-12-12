@@ -28,6 +28,7 @@ public class EnemyScript : MonoBehaviour
 
     void Start()
     {
+        // Randomizing the rotation speed and direction of the obstacles
         if (canRotate)
         {
             if(Random.Range(0,2) > 0)
@@ -53,7 +54,7 @@ public class EnemyScript : MonoBehaviour
         Move();
         RotateEnemy();
     }
-
+    // Function to move the enemy from right to left of the screen
     void Move()
     {
         if (canMove)
@@ -64,11 +65,11 @@ public class EnemyScript : MonoBehaviour
 
             if(temp.x < boundX)
             {
-                gameObject.SetActive(false);
+                gameObject.SetActive(false); // Turning off the game object after it has passed the left edge of the screen
             }
         }
     }
-
+    
     void RotateEnemy()
     {
         if (canRotate)
@@ -76,10 +77,11 @@ public class EnemyScript : MonoBehaviour
             transform.Rotate(new Vector3(0f, 0f, Time.deltaTime * rotateSpeed), Space.World);
         }
     }
-
+    
     void StartShooting()
     {
-        GameObject bullet = Instantiate(bullet_Prefab, attack_Point.position, Quaternion.identity);
+        // Spawning bullet from the point of enemy spaceship
+        GameObject bullet = Instantiate(bullet_Prefab, attack_Point.position, Quaternion.identity); 
         bullet.GetComponent<BulletScript>().isEnemyBullet = true;
 
         if (canShoot)
@@ -92,7 +94,8 @@ public class EnemyScript : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
+    
+    // Checking for collision between enemy and bullet/player
     void OnTriggerEnter2D(Collider2D target)
     {
         if(target.tag == "Bullet" || target.tag == "Player")
@@ -106,8 +109,8 @@ public class EnemyScript : MonoBehaviour
 
             Invoke("TurnGameObjectOff", 3f);
 
-            explosionSound.Play();
-            anim.Play("Destroy");
+            explosionSound.Play(); // Playing explosion sound when collision happens
+            anim.Play("Destroy"); // Playing explosion animation when collision happens
         }
     }
 }
